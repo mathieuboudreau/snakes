@@ -1,5 +1,6 @@
 var player;
 var PSIZE = 10;
+var SPEED = 1;
 
 function setup() {
     createCanvas(500, 500);
@@ -12,11 +13,33 @@ function draw() {
     player.show();
 }
 
+function keyPressed() {
+    if (keyCode === UP_ARROW) {
+        player.dir(0, -SPEED);
+    } else if (keyCode === DOWN_ARROW) {
+        player.dir(0, +SPEED);
+    } else if (keyCode === LEFT_ARROW) {
+        player.dir(-SPEED, 0);
+    } else if (keyCode === RIGHT_ARROW) {
+        player.dir(SPEED, 0);
+    }
+}
+
 function Snake() {
     this.x = width/2;
     this.y = height/2;
 
+    this.dir = function(vx, vy) {
+        this.xSpeed = vx;
+        this.ySpeed = vy;
+    }
+
+    // Initial movement direction
+    this.dir(SPEED,0)
+
     this.update = function() {
+        this.x = this.x + this.xSpeed;
+        this.y = this.y + this.ySpeed;
     }
 
     this.show = function() {
