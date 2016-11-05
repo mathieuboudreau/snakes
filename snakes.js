@@ -1,5 +1,5 @@
 var player;
-var PSIZE = 10;
+var PSIZE = 20;
 var SPEED = 1;
 
 function setup() {
@@ -38,8 +38,8 @@ function Snake() {
     this.dir(SPEED,0)
 
     this.update = function() {
-        this.x = this.x + this.xSpeed;
-        this.y = this.y + this.ySpeed;
+        this.x = this.x + this.xSpeed*PSIZE;
+        this.y = this.y + this.ySpeed*PSIZE;
     }
 
     this.show = function() {
