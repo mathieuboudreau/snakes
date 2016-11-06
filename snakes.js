@@ -5,6 +5,7 @@ var SPEED = 1;
 function setup() {
     createCanvas(500, 500);
     player = new Snake();
+    frameRate(10);
 }
 
 function draw() {
@@ -40,6 +41,9 @@ function Snake() {
     this.update = function() {
         this.x = this.x + this.xSpeed*PSIZE;
         this.y = this.y + this.ySpeed*PSIZE;
+
+        this.x = constrain(this.x, 0, width-PSIZE);
+        this.y = constrain(this.y, 0, height-PSIZE);
     }
 
     this.show = function() {
