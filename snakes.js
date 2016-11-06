@@ -26,13 +26,21 @@ function draw() {
 
 function keyPressed() {
     if (keyCode === UP_ARROW) {
-        player.dir(0, -SPEED);
+        if (player.ySpeed !== SPEED){
+            player.dir(0, -SPEED);
+        }
     } else if (keyCode === DOWN_ARROW) {
-        player.dir(0, +SPEED);
+        if (player.ySpeed !== -SPEED){
+            player.dir(0, +SPEED);
+        }
     } else if (keyCode === LEFT_ARROW) {
-        player.dir(-SPEED, 0);
+        if (player.xSpeed !== SPEED){
+            player.dir(-SPEED, 0);
+        }
     } else if (keyCode === RIGHT_ARROW) {
-        player.dir(SPEED, 0);
+        if (player.xSpeed !== -SPEED){
+            player.dir(SPEED, 0);
+        }
     }
 }
 
