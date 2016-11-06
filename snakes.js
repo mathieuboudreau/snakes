@@ -67,13 +67,13 @@ function Snake() {
     }
 
     this.die = function() {
-            for(var ii = 0; ii < this.tail.length; ii++){
-                if(dist(this.x, this.y, this.tail[ii].x, this.tail[ii].y)<1){
-                    this.total = 0;
-                    this.tail = [];
-                    break;
-                }
+        for(var ii = 0; ii < this.tail.length; ii++){
+            if(dist(this.x, this.y, this.tail[ii].x, this.tail[ii].y)<1){
+                this.total = 0;
+                this.tail = [];
+                break;
             }
+        }
     }
 
     this.update = function() {
