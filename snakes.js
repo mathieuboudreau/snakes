@@ -17,6 +17,7 @@ function setup() {
 
 function draw() {
     background(200);
+    player.die();
     player.eat();
     player.update();
     food.show();
@@ -55,6 +56,16 @@ function Snake() {
             food.pickLocation();
             this.total = this.total+1;
         }
+    }
+
+    this.die = function() {
+            for(var ii = 0; ii < this.tail.length; ii++){
+                if(dist(this.x, this.y, this.tail[ii].x, this.tail[ii].y)<1){
+                    this.total = 0;
+                    this.tail = [];
+                    break;
+                }
+            }
     }
 
     this.update = function() {
