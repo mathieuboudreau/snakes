@@ -1,11 +1,13 @@
 var player;
 var PSIZE = 20;
+var GRIDX = 500;
+var GRIDY = 500;
 var SPEED = 1;
 
 var food;
 
 function setup() {
-    createCanvas(500, 500);
+    createCanvas(floor(GRIDX/PSIZE)*PSIZE, floor(GRIDY/PSIZE)*PSIZE);
     player = new Snake();
     frameRate(10);
 
