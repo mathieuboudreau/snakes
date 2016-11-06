@@ -17,11 +17,10 @@ function setup() {
 
 function draw() {
     background(200);
-    player.update();
     player.eat();
-    player.show();
-
+    player.update();
     food.show();
+    player.show();
 }
 
 function keyPressed() {
@@ -40,6 +39,9 @@ function Snake() {
     this.x = floor(floor(width/PSIZE)/2)*PSIZE;  // Put user initial pos on same grid as defined for food
     this.y = floor(floor(height/PSIZE)/2)*PSIZE; // ...it's the closest grid position near center
 
+    this.total = 0; // Current tail length
+    this.tail = []; // Array of tail positions
+
     this.dir = function(vx, vy) {
         this.xSpeed = vx;
         this.ySpeed = vy;
@@ -51,11 +53,20 @@ function Snake() {
     this.eat = function() {
         if (dist(this.x, this.y, food.x, food.y) < 1) {
             food.pickLocation();
+            this.total = this.total+1;
         }
-
     }
 
     this.update = function() {
+        if(this.total === this.tail.length) {
+            // If snake didn't eat food, shift tail positions so that the furthest away disapears.
+            for(var ii = 0; ii < this.tail.length-1; ii++){
+                this.tail[ii] = this.tail[ii+1];
+            }
+        }
+
+        this.tail[this.total-1] = createVector(this.x, this.y);
+
         this.x = this.x + this.xSpeed*PSIZE;
         this.y = this.y + this.ySpeed*PSIZE;
 
@@ -66,6 +77,9 @@ function Snake() {
     this.show = function() {
         fill(0);
         rect(this.x, this.y, PSIZE, PSIZE);
+        for(var ii = 0; ii < this.tail.length; ii++) {
+            rect(this.tail[ii].x, this.tail[ii].y, PSIZE, PSIZE);
+        }
     }
 }
 
