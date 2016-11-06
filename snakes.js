@@ -17,6 +17,7 @@ function setup() {
 function draw() {
     background(200);
     player.update();
+    player.eat();
     player.show();
 
     fill(51, 147, 232);
@@ -54,6 +55,13 @@ function Snake() {
 
     // Initial movement direction
     this.dir(SPEED,0)
+
+    this.eat = function() {
+        if (dist(this.x, this.y, food.x, food.y) < 1) {
+            pickLocation();
+        }
+
+    }
 
     this.update = function() {
         this.x = this.x + this.xSpeed*PSIZE;
