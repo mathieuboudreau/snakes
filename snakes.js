@@ -2,16 +2,24 @@ var player;
 var PSIZE = 20;
 var SPEED = 1;
 
+var food;
+
 function setup() {
     createCanvas(500, 500);
     player = new Snake();
     frameRate(10);
+
+    food = createVector(random(width), random(height));
 }
 
 function draw() {
     background(200);
     player.update();
     player.show();
+
+    fill(51, 147, 232);
+    noStroke()
+    rect(food.x, food.y, PSIZE, PSIZE);
 }
 
 function keyPressed() {
