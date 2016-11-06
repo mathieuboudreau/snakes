@@ -9,7 +9,7 @@ function setup() {
     player = new Snake();
     frameRate(10);
 
-    food = createVector(random(width), random(height));
+    pickLocation();
 }
 
 function draw() {
@@ -20,6 +20,13 @@ function draw() {
     fill(51, 147, 232);
     noStroke()
     rect(food.x, food.y, PSIZE, PSIZE);
+}
+
+function pickLocation() {
+    var cols = floor(width/PSIZE);
+    var rows = floor(height/PSIZE);
+    food = createVector(floor(random(cols)), floor(random(rows)));
+    food.mult(PSIZE);
 }
 
 function keyPressed() {
@@ -35,8 +42,8 @@ function keyPressed() {
 }
 
 function Snake() {
-    this.x = width/2;
-    this.y = height/2;
+    this.x = floor(floor(width/PSIZE)/2)*PSIZE;  // Put user initial pos on same grid as defined for food
+    this.y = floor(floor(height/PSIZE)/2)*PSIZE; // ...it's the closest grid position near center
 
     this.dir = function(vx, vy) {
         this.xSpeed = vx;
