@@ -1,17 +1,18 @@
 var player;
+var food;
+
 var PSIZE = 20;
 var GRIDX = 500;
 var GRIDY = 500;
 var SPEED = 1;
 
-var food;
-
 function setup() {
     createCanvas(floor(GRIDX/PSIZE)*PSIZE, floor(GRIDY/PSIZE)*PSIZE);
     player = new Snake();
-    frameRate(10);
+    food = new Food();
+    food.pickLocation();
 
-    pickLocation();
+    frameRate(10);
 }
 
 function draw() {
@@ -20,16 +21,7 @@ function draw() {
     player.eat();
     player.show();
 
-    fill(51, 147, 232);
-    noStroke()
-    rect(food.x, food.y, PSIZE, PSIZE);
-}
-
-function pickLocation() {
-    var cols = floor(width/PSIZE);
-    var rows = floor(height/PSIZE);
-    food = createVector(floor(random(cols)), floor(random(rows)));
-    food.mult(PSIZE);
+    food.show();
 }
 
 function keyPressed() {
@@ -58,7 +50,7 @@ function Snake() {
 
     this.eat = function() {
         if (dist(this.x, this.y, food.x, food.y) < 1) {
-            pickLocation();
+            food.pickLocation();
         }
 
     }
@@ -73,6 +65,23 @@ function Snake() {
 
     this.show = function() {
         fill(0);
+        rect(this.x, this.y, PSIZE, PSIZE);
+    }
+}
+
+function Food() {
+
+    this.pickLocation = function() {
+        var cols = floor(width/PSIZE);
+        var rows = floor(height/PSIZE);
+
+        this.x = floor(random(cols))*PSIZE;
+        this.y = floor(random(rows))*PSIZE;
+    }
+
+    this.show = function() {
+        fill(51, 147, 232);
+        noStroke()
         rect(this.x, this.y, PSIZE, PSIZE);
     }
 }
