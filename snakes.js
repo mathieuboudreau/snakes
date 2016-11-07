@@ -76,6 +76,42 @@ function Snake() {
         }
     }
 
+    this.wallCollision = function() {
+        if((this.y === 0) && (this.ySpeed === -SPEED)){
+            if(this.x === 0){
+                this.dir(SPEED,0);
+            } else if(this.x === width-PSIZE){
+                this.dir(-SPEED,0);
+            } else {
+                this.dir(SPEED,0);
+            }
+        } else if(this.y === height-PSIZE && (this.ySpeed === SPEED)){
+            if(this.x === 0){
+                this.dir(SPEED,0);
+            } else if(this.x === width-PSIZE){
+                this.dir(-SPEED,0);
+            } else {
+                this.dir(-SPEED,0);
+            }
+        } else if(this.x === 0 && (this.xSpeed === -SPEED)){
+            if(this.y === 0){
+                this.dir(0,SPEED);
+            } else if(this.y === height-PSIZE){
+                this.dir(0,-SPEED);
+            } else {
+                this.dir(0,-SPEED);
+            }
+        } else if(this.x === height-PSIZE && (this.xSpeed === SPEED)){
+            if(this.y === 0){
+                this.dir(0,SPEED);
+            } else if(this.y === height-PSIZE){
+                this.dir(0,-SPEED);
+            } else {
+                this.dir(0,SPEED);
+            }
+        }
+    }
+
     this.update = function() {
         if(this.total === this.tail.length) {
             // If snake didn't eat food, shift tail positions so that the furthest away disapears.
@@ -86,11 +122,11 @@ function Snake() {
 
         this.tail[this.total-1] = createVector(this.x, this.y);
 
+        this.wallCollision();
+
         this.x = this.x + this.xSpeed*PSIZE;
         this.y = this.y + this.ySpeed*PSIZE;
 
-        this.x = constrain(this.x, 0, width-PSIZE);
-        this.y = constrain(this.y, 0, height-PSIZE);
     }
 
     this.show = function() {
